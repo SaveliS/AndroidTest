@@ -2,6 +2,8 @@ package com.example.sendy.service;
 
 import static land.sendy.pfe_sdk.api.API.api;
 
+import android.content.Context;
+
 import com.example.sendy.MainActivity;
 import com.example.sendy.exception.NoResponseData;
 import com.example.sendy.exception.NoSendRequestException;
@@ -19,7 +21,7 @@ import land.sendy.pfe_sdk.model.types.LoaderError;
 
 public class WalletsService {
 
-    public void getTermsOfUser(MainActivity activity, TermsCallback callback){
+    public void getTermsOfUser(Context activity, TermsCallback callback){
         if(callback == null)
             return;
 
@@ -41,7 +43,7 @@ public class WalletsService {
             callback.onError("Ошибка");
         }
     }
-    public void sendMessage(String phoneNumber, MainActivity activity, MessageCallback callback) {
+    public void sendMessage(String phoneNumber, Context activity, MessageCallback callback) {
         String formatedNumber = phoneNumber.replaceAll("[^\\d]", "");
 
         LoaderError runLogin = api.loginAtAuth(activity, formatedNumber, new ApiCallback() {
@@ -66,7 +68,7 @@ public class WalletsService {
         }
     }
 
-    public void checkCode(String token, MainActivity activity, MessageCallback callback) {
+    public void checkCode(String token, Context activity, MessageCallback callback) {
         try {
             LoaderError runSendCode = api.activateWllet(activity, token, "sms", new ApiCallback() {
                 @Override
